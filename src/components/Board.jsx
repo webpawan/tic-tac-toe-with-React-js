@@ -4,7 +4,8 @@ import Square from "./Square";
 const Board = () => {
   const [isTursn, setIsTursn] = useState(true);
   const [state, setState] = useState(Array(9).fill(null));
-
+  const [count, setCount] = useState(0);
+  const [IsBoxFill, setIsBoxFill] = useState(false);
   const checkWinner = () => {
     const winnerLogic = [
       [0, 1, 2],
@@ -26,30 +27,53 @@ const Board = () => {
   };
 
   const isWinner = checkWinner();
-let count =0;
-let checkFillOrNot = state.length;
-  const handleClick = (index) => {
-    if (state[index] !== null) {
-      return;
-    }
+  let BoxCheck = state.length-1;
 
-    const copyState = [...state];
-    copyState[index] = isTursn ? "X" : "O";
-    setState(copyState);
-    count++;
-    setIsTursn(!isTursn);
+  const handleClick = (index) => {
+    if (count !== BoxCheck) {
+      if (state[index] !== null) {
+        return;
+      }
+
+      const copyState = [...state];
+      copyState[index] = isTursn ? "X" : "O";
+      setState(copyState);
+      setIsTursn(!isTursn);
+      setCount(count + 1);
+      
+    } else {
+      setIsBoxFill(true);
+    }
   };
 
   const handleReset = () => {
+    setCount(0);
+    setIsBoxFill(false);
     setState(Array(9).fill(null));
   };
+
+  if (IsBoxFill) {
+    return (
+      <div className="container">
+        <h1 className="heading"> Drwa game</h1>
+        <button onClick={handleReset} className="reset">
+          play again
+        </button>
+      </div>
+    );
+  }
 
   return (
     <>
       {isWinner ? (
         <>
-          <h1>{isWinner} won the game</h1>
-          <button onClick={handleReset}>play again</button>
+        <div className="container">
+        <h1 className="heading">{isWinner} won the game</h1>
+          <button onClick={handleReset} className="reset">
+            play again
+          </button>
+        </div>
+          
         </>
       ) : (
         <div className="container">
