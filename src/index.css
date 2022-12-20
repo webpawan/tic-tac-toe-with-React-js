@@ -54,3 +54,17 @@ box-shadow: 5px 5px 15px rgba(0, 255, 255, 0.212),-5px -5px 15px rgba(0, 255, 25
   box-shadow:  5px 5px 15px rgba(0, 255, 255, 0.412),-5px -5px 15px rgba(0, 255, 255, 0.401);
   transform: scale(0.9);
 }
+
+@media only screen and (max-width: 600px) {
+ 
+  .board-row {
+width: 65vw;
+  }
+}
+
+@media only screen and (max-width: 350px) {
+ 
+  .board-row {
+width: 90vw;
+  }
+}
